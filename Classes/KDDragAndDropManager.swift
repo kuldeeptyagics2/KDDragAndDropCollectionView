@@ -65,7 +65,7 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
     }
     var bundle : Bundle?
     
-    public init(canvas : UIView, collectionViews : [UIView]) {
+    @objc public init(canvas : UIView, collectionViews : [UIView]) {
         
         super.init()
         
@@ -94,7 +94,12 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
             guard var representation = draggable.representationImageAtPoint(touchPointInView) else { continue }
             
             representation.frame = self.canvas.convert(representation.frame, from: view)
-            representation.alpha = 0.5
+            representation.backgroundColor = UIColor.red
+            representation.layer.cornerRadius = 8
+            representation.alpha = 0.7
+            representation.layer.borderColor = UIColor.darkGray.cgColor
+            representation.layer.borderWidth = 0.7
+            representation.layer.masksToBounds = true
             if let decoredView = draggable.stylingRepresentationView(representation) {
                 representation = decoredView
             }
@@ -127,7 +132,7 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
         
         guard let bundle = self.bundle else { return }
         
-        let pointOnCanvas = recogniser.location(in: self.canvas)
+        let pointOnCanvas = recogniser.location(in: recogniser.view)
         let sourceDraggable : KDDraggable = bundle.sourceDraggableView as! KDDraggable
         let pointOnSourceDraggable = recogniser.location(in: bundle.sourceDraggableView)
         
