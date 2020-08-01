@@ -24,7 +24,7 @@
 
 import UIKit
 
-public protocol KDDragAndDropCollectionViewDataSource : UICollectionViewDataSource {
+@objc public protocol KDDragAndDropCollectionViewDataSource : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, indexPathForDataItem dataItem: AnyObject) -> IndexPath?
     func collectionView(_ collectionView: UICollectionView, dataItemForIndexPath indexPath: IndexPath) -> AnyObject
@@ -38,8 +38,7 @@ public protocol KDDragAndDropCollectionViewDataSource : UICollectionViewDataSour
     
     /* optional */ func collectionView(_ collectionView: UICollectionView, stylingRepresentationView: UIView) -> UIView?
 }
-
-extension KDDragAndDropCollectionViewDataSource {
+ extension KDDragAndDropCollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, stylingRepresentationView: UIView) -> UIView? {
         return nil
     }
@@ -51,13 +50,13 @@ extension KDDragAndDropCollectionViewDataSource {
     }
 }
 
-open class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDroppable {
+@objc open class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDroppable {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    public var draggingPathOfCellBeingDragged : IndexPath?
+    @objc public var draggingPathOfCellBeingDragged : IndexPath?
     
     var iDataSource : UICollectionViewDataSource?
     var iDelegate : UICollectionViewDelegate?
